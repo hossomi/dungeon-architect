@@ -2,9 +2,7 @@ import React from 'react';
 import './style.scss';
 
 const Footer = () => (
-  <footer>
-    Nothing here yet!
-  </footer>
+  <footer />
 );
 
 export default Footer;

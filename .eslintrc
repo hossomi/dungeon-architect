@@ -46,6 +46,7 @@
       "max-len": 0,
       "no-console": 1,
       "react/forbid-prop-types": 0,
+      "react/jsx-closing-bracket-location": [1, "after-props"],
       "react/jsx-curly-brace-presence": "off",
       "react/jsx-first-prop-new-line": [
         2,

@@ -9,15 +9,7 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
         <h1>Dungeon Architect</h1>
         <div className="nav-bar">
           <Link className="router-link" to="/">
-            Home
-          </Link>
-
-          <Link className="router-link" to="/">
-            Home?
-          </Link>
-
-          <Link className="router-link" to="/">
-            Not home
+            Overview
           </Link>
         </div>
       </div>

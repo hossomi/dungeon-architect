@@ -13,7 +13,7 @@ import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import HomePage from './HomePage';
+import Overview from './Overview';
 
 const mapDispatchToProps = (dispatch) => ({
   onChangeUsername: (evt) => dispatch(changeUsername(evt.target.value)),
@@ -35,5 +35,5 @@ const withConnect = connect(mapStateToProps, mapDispatchToProps);
 const withReducer = injectReducer({ key: 'home', reducer });
 const withSaga = injectSaga({ key: 'home', saga });
 
-export default compose(withReducer, withSaga, withConnect)(HomePage);
+export default compose(withReducer, withSaga, withConnect)(Overview);
 export { mapDispatchToProps };
