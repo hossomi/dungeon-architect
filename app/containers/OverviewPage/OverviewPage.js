@@ -18,16 +18,17 @@ export default class OverviewPage extends React.Component {
     window.removeEventListener('resize', this.updateWindowDimensions);
   }
 
-  updateWindowDimensions() {
+  updateWindowDimensions = () => {
     const content = document.getElementById('content');
     this.setState({
       width: content.offsetWidth,
       height: content.offsetHeight
     });
-  }
+  };
 
   render() {
     const { width, height } = this.state;
+
     return (
       <article>
         <Helmet>

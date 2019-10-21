@@ -40,14 +40,14 @@ const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
 
 const render = () => {
-  ReactDOM.render(
+  const content = (
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <App />
       </ConnectedRouter>
-    </Provider>,
-    MOUNT_NODE
+    </Provider>
   );
+  ReactDOM.render(content, MOUNT_NODE);
 };
 
 if (module.hot) {
