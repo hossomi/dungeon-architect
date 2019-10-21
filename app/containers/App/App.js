@@ -1,16 +1,8 @@
-/**
- *
- * App
- *
- * This component is the skeleton around the actual pages, and should only
- * contain code that should be seen on all pages. (e.g. navigation bar)
- */
-
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Switch, Route } from 'react-router-dom';
 
-import Overview from 'containers/Overview';
+import OverviewPage from 'containers/OverviewPage';
 import NotFoundPage from 'containers/NotFoundPage';
 import Header from 'components/Header';
 import Toolbar from 'components/Toolbar';
@@ -23,9 +15,9 @@ const App = () => (
       defaultTitle="Dungeon Architect">
     </Helmet>
     <Header />
-    <div className="content">
+    <div id="content" className="content">
       <Switch>
-        <Route exact path="/" component={Overview} />
+        <Route exact path="/" component={OverviewPage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
     </div>
