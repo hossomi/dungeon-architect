@@ -1,0 +1,10 @@
+svg {
+  rect.grid-cell {
+    fill: white;
+    stroke: black;
+  }
+
+  rect.grid-cell:hover {
+    fill: lightgreen;
+  }
+}

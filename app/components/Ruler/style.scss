@@ -1,0 +1,14 @@
+svg {
+  rect.ruler-background {
+    fill: lightgray;
+  }
+
+  line.ruler-tick {
+    stroke: black;
+  }
+
+  text.ruler-tick {
+    color: black;
+    font-size: 12px;
+  }
+}
