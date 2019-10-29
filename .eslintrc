@@ -16,6 +16,7 @@
     }
   },
   "rules": {
+    "class-methods-use-this": "off",
     "no-param-reassign": "off",
     "function-paren-newline": ["error", "never"],
     "arrow-parens": ["error", "always"],

@@ -6,9 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = require('./webpack.base.babel')({
   mode: 'production',
   // In production, we skip all hot-reloading stuff
-  entry: [
-    path.join(process.cwd(), 'app/app.js')
-  ],
+  entry: [path.join(process.cwd(), 'app/app.js')],
 
   // Utilize long-term caching by adding content hashes (not compilation hashes) to compiled assets
   output: {
@@ -17,7 +15,6 @@ module.exports = require('./webpack.base.babel')({
   },
 
   plugins: [
-
     // Minify and optimize the index.html
     new HtmlWebpackPlugin({
       template: 'app/index.html',
@@ -31,13 +28,13 @@ module.exports = require('./webpack.base.babel')({
         keepClosingSlash: true,
         minifyJS: true,
         minifyCSS: true,
-        minifyURLs: true,
+        minifyURLs: true
       },
       inject: true
-    }),
+    })
   ],
 
   performance: {
-    assetFilter: (assetFilename) => !(/(\.map$)|(^(main\.|favicon\.))/.test(assetFilename)),
-  },
+    assetFilter: (assetFilename) => !/(\.map$)|(^(main\.|favicon\.))/.test(assetFilename)
+  }
 });

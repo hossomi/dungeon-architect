@@ -24,6 +24,8 @@ function htick(x, value, width, position) {
       y = 2;
       shift = 'sub';
       break;
+    default:
+      throw Error('Unknown align');
   }
 
   return (
@@ -49,6 +51,8 @@ function vtick(y, value, width, position) {
       ty = y - 2;
       shift = 'auto';
       break;
+    default:
+      throw Error('Unknown align');
   }
 
   return (
@@ -66,6 +70,7 @@ function vtick(y, value, width, position) {
   );
 }
 
+/* eslint-disable react/prefer-stateless-function */
 export default class Ruler extends React.Component {
   render() {
     const {
@@ -116,6 +121,8 @@ export default class Ruler extends React.Component {
         };
         tick = vtick;
         break;
+      default:
+        throw Error('Unknown position');
     }
 
     return (

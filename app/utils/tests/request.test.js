@@ -16,8 +16,8 @@ describe('request', () => {
       const res = new Response('{"hello":"world"}', {
         status: 200,
         headers: {
-          'Content-type': 'application/json',
-        },
+          'Content-type': 'application/json'
+        }
       });
 
       window.fetch.mockReturnValue(Promise.resolve(res));
@@ -27,7 +27,8 @@ describe('request', () => {
       request('/thisurliscorrect')
         .catch(done)
         .then((json) => {
-          expect(json.hello).toBe('world');
+          expect(json.hello)
+            .toBe('world');
           done();
         });
     });
@@ -38,7 +39,7 @@ describe('request', () => {
     beforeEach(() => {
       const res = new Response('', {
         status: 204,
-        statusText: 'No Content',
+        statusText: 'No Content'
       });
 
       window.fetch.mockReturnValue(Promise.resolve(res));
@@ -48,7 +49,8 @@ describe('request', () => {
       request('/thisurliscorrect')
         .catch(done)
         .then((json) => {
-          expect(json).toBeNull();
+          expect(json)
+            .toBeNull();
           done();
         });
     });
@@ -61,8 +63,8 @@ describe('request', () => {
         status: 404,
         statusText: 'Not Found',
         headers: {
-          'Content-type': 'application/json',
-        },
+          'Content-type': 'application/json'
+        }
       });
 
       window.fetch.mockReturnValue(Promise.resolve(res));
@@ -71,8 +73,10 @@ describe('request', () => {
     it('should catch errors', (done) => {
       request('/thisdoesntexist')
         .catch((err) => {
-          expect(err.response.status).toBe(404);
-          expect(err.response.statusText).toBe('Not Found');
+          expect(err.response.status)
+            .toBe(404);
+          expect(err.response.statusText)
+            .toBe('Not Found');
           done();
         });
     });
