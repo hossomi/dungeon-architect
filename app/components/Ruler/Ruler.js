@@ -3,35 +3,39 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import './style.scss';
 
-function centerCellOffset(size, cell) {
-  return size / 2 - Math.floor(size / 2 / cell) * cell;
-}
+import { gridRowPoints } from 'utils/geometry';
 
-function cells(size, cell) {
-  return _.range(centerCellOffset(size, cell), size, cell);
-}
+const HTICK = {
+  top: (width) => ({
+    y: width - 2,
+    shift: 'auto'
+  }),
+
+  bottom: () => ({
+    y: 2,
+    shift: 'sub'
+  })
+};
+
+const VTICK = {
+  left: (y, width) => ({
+    y: y - width + 2 + 1,
+    shift: 'sub'
+  }),
+
+  right: (y) => ({
+    y: y - 2,
+    shift: 'auto'
+  })
+};
 
 function htick(x, value, width, position) {
-  let y;
-  let shift;
-
-  switch (position) {
-    case 'top':
-      y = width - 2;
-      shift = 'auto';
-      break;
-    case 'bottom':
-      y = 2;
-      shift = 'sub';
-      break;
-    default:
-      throw Error('Unknown align');
-  }
+  const p = HTICK[position](width);
 
   return (
     <g key={x}>
       <line className="ruler-tick" x1={x} x2={x} y1={0} y2={width} />
-      <text className="ruler-tick" x={x + 2} y={y} baselineShift={shift}>
+      <text className="ruler-tick" x={x + 2} y={p.y} baselineShift={p.shift}>
         {value}
       </text>
     </g>
@@ -39,21 +43,7 @@ function htick(x, value, width, position) {
 }
 
 function vtick(y, value, width, position) {
-  let ty;
-  let shift;
-
-  switch (position) {
-    case 'left':
-      ty = y - width + 3;
-      shift = 'sub';
-      break;
-    case 'right':
-      ty = y - 2;
-      shift = 'auto';
-      break;
-    default:
-      throw Error('Unknown align');
-  }
+  const p = VTICK[position](y, width);
 
   return (
     <g key={y}>
@@ -61,14 +51,56 @@ function vtick(y, value, width, position) {
       <text
         className="ruler-tick"
         x={2}
-        y={ty}
+        y={p.y}
         transform={`rotate(90, ${0}, ${y})`}
-        baselineShift={shift}>
+        baselineShift={p.shift}>
         {value}
       </text>
     </g>
   );
 }
+
+const GRID = {
+  top: (x, y, length, width) => ({
+    svg: {
+      x,
+      y,
+      width: length,
+      height: width
+    },
+    tick: htick
+  }),
+
+  bottom: (x, y, length, width) => ({
+    svg: {
+      x,
+      y: y - width,
+      width: length,
+      height: width
+    },
+    tick: htick
+  }),
+
+  left: (x, y, length, width) => ({
+    svg: {
+      x,
+      y,
+      width,
+      height: length
+    },
+    tick: vtick
+  }),
+
+  right: (x, y, length, width) => ({
+    svg: {
+      x: x - width,
+      y,
+      width,
+      height: length
+    },
+    tick: vtick
+  })
+};
 
 /* eslint-disable react/prefer-stateless-function */
 export default class Ruler extends React.Component {
@@ -77,59 +109,14 @@ export default class Ruler extends React.Component {
       x, y, length, width, step, position
     } = this.props;
 
-    let svgProps;
-    let tick;
-
-    switch (position) {
-      case 'top':
-        svgProps = {
-          x,
-          y,
-          width: length,
-          height: width,
-          viewBox: `0 0 ${length} ${width}`
-        };
-        tick = htick;
-        break;
-      case 'bottom':
-        svgProps = {
-          x,
-          y: y - width,
-          width: length,
-          height: width,
-          viewBox: `0 0 ${length} ${width}`
-        };
-        tick = htick;
-        break;
-      case 'left':
-        svgProps = {
-          x,
-          y,
-          width,
-          height: length,
-          viewBox: `0 0 ${width} ${length}`
-        };
-        tick = vtick;
-        break;
-      case 'right':
-        svgProps = {
-          x: x - width,
-          y,
-          width,
-          height: length,
-          viewBox: `0 0 ${width} ${length}`
-        };
-        tick = vtick;
-        break;
-      default:
-        throw Error('Unknown position');
-    }
+    const p = GRID[position](x, y, length, width);
 
     return (
-      <svg {...svgProps}>
+      <svg {...p.svg}>
         <rect className="ruler-background" width="100%" height="100%" />
-        {cells(length, step)
-          .map((i) => tick(i, i - length / 2, width, position))}
+        {gridRowPoints(step, length)
+          // FIXME: include offset somehow in value
+          .map((g) => p.tick(g.view.left, g.view.left - length / 2, width, position))}
       </svg>
     );
   }
