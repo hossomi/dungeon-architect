@@ -17,20 +17,20 @@ describe('geometry', () => {
       expect(gridRowPoints(25, 100))
         .toEqual([
           {
-            view: { start: 0, end: 25, middle: 12.5 },
-            grid: { index: -2 }
+            view: { left: 0, right: 25, center: 12.5 },
+            grid: { row: -2 }
           },
           {
-            view: { start: 25, end: 50, middle: 37.5 },
-            grid: { index: -1 }
+            view: { left: 25, right: 50, center: 37.5 },
+            grid: { row: -1 }
           },
           {
-            view: { start: 50, end: 75, middle: 62.5 },
-            grid: { index: 1 }
+            view: { left: 50, right: 75, center: 62.5 },
+            grid: { row: 1 }
           },
           {
-            view: { start: 75, end: 100, middle: 87.5 },
-            grid: { index: 2 }
+            view: { left: 75, right: 100, center: 87.5 },
+            grid: { row: 2 }
           }
         ]);
     });
@@ -39,28 +39,28 @@ describe('geometry', () => {
       expect(gridRowPoints(20, 100))
         .toEqual([
           {
-            view: { start: -10, end: 10, middle: 0 },
-            grid: { index: -3 }
+            view: { left: -10, right: 10, center: 0 },
+            grid: { row: -3 }
           },
           {
-            view: { start: 10, end: 30, middle: 20 },
-            grid: { index: -2 }
+            view: { left: 10, right: 30, center: 20 },
+            grid: { row: -2 }
           },
           {
-            view: { start: 30, end: 50, middle: 40 },
-            grid: { index: -1 }
+            view: { left: 30, right: 50, center: 40 },
+            grid: { row: -1 }
           },
           {
-            view: { start: 50, end: 70, middle: 60 },
-            grid: { index: 1 }
+            view: { left: 50, right: 70, center: 60 },
+            grid: { row: 1 }
           },
           {
-            view: { start: 70, end: 90, middle: 80 },
-            grid: { index: 2 }
+            view: { left: 70, right: 90, center: 80 },
+            grid: { row: 2 }
           },
           {
-            view: { start: 90, end: 110, middle: 100 },
-            grid: { index: 3 }
+            view: { left: 90, right: 110, center: 100 },
+            grid: { row: 3 }
           }
         ]);
     });
@@ -69,24 +69,24 @@ describe('geometry', () => {
       expect(gridRowPoints(25, 100, 10))
         .toEqual([
           {
-            view: { start: -15, end: 10, middle: -2.5 },
-            grid: { index: -3 }
+            view: { left: -15, right: 10, center: -2.5 },
+            grid: { row: -3 }
           },
           {
-            view: { start: 10, end: 35, middle: 22.5 },
-            grid: { index: -2 }
+            view: { left: 10, right: 35, center: 22.5 },
+            grid: { row: -2 }
           },
           {
-            view: { start: 35, end: 60, middle: 47.5 },
-            grid: { index: -1 }
+            view: { left: 35, right: 60, center: 47.5 },
+            grid: { row: -1 }
           },
           {
-            view: { start: 60, end: 85, middle: 72.5 },
-            grid: { index: 1 }
+            view: { left: 60, right: 85, center: 72.5 },
+            grid: { row: 1 }
           },
           {
-            view: { start: 85, end: 110, middle: 97.5 },
-            grid: { index: 2 }
+            view: { left: 85, right: 110, center: 97.5 },
+            grid: { row: 2 }
           }
         ]);
     });
@@ -95,24 +95,24 @@ describe('geometry', () => {
       expect(gridRowPoints(25, 100, 60))
         .toEqual([
           {
-            view: { start: -15, end: 10, middle: -2.5 },
-            grid: { index: -5 }
+            view: { left: -15, right: 10, center: -2.5 },
+            grid: { row: -5 }
           },
           {
-            view: { start: 10, end: 35, middle: 22.5 },
-            grid: { index: -4 }
+            view: { left: 10, right: 35, center: 22.5 },
+            grid: { row: -4 }
           },
           {
-            view: { start: 35, end: 60, middle: 47.5 },
-            grid: { index: -3 }
+            view: { left: 35, right: 60, center: 47.5 },
+            grid: { row: -3 }
           },
           {
-            view: { start: 60, end: 85, middle: 72.5 },
-            grid: { index: -2 }
+            view: { left: 60, right: 85, center: 72.5 },
+            grid: { row: -2 }
           },
           {
-            view: { start: 85, end: 110, middle: 97.5 },
-            grid: { index: -1 }
+            view: { left: 85, right: 110, center: 97.5 },
+            grid: { row: -1 }
           }
         ]);
     });
@@ -121,24 +121,24 @@ describe('geometry', () => {
       expect(gridRowPoints(25, 100, 120))
         .toEqual([
           {
-            view: { start: -5, end: 20, middle: 7.5 },
-            grid: { index: -7 }
+            view: { left: -5, right: 20, center: 7.5 },
+            grid: { row: -7 }
           },
           {
-            view: { start: 20, end: 45, middle: 32.5 },
-            grid: { index: -6 }
+            view: { left: 20, right: 45, center: 32.5 },
+            grid: { row: -6 }
           },
           {
-            view: { start: 45, end: 70, middle: 57.5 },
-            grid: { index: -5 }
+            view: { left: 45, right: 70, center: 57.5 },
+            grid: { row: -5 }
           },
           {
-            view: { start: 70, end: 95, middle: 82.5 },
-            grid: { index: -4 }
+            view: { left: 70, right: 95, center: 82.5 },
+            grid: { row: -4 }
           },
           {
-            view: { start: 95, end: 120, middle: 107.5 },
-            grid: { index: -3 }
+            view: { left: 95, right: 120, center: 107.5 },
+            grid: { row: -3 }
           }
         ]);
     });

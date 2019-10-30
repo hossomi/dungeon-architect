@@ -1,25 +1,28 @@
 import _ from 'lodash';
 
-export function centeredSteps(viewSize, gridStep, viewOffset = 0) {
-  const half = viewSize / 2 + viewOffset;
-  const start = half - Math.ceil(half / gridStep) * gridStep;
-  return _.range(start, viewSize, gridStep);
+export function centeredSteps(view, grid, offset = 0) {
+  const half = view / 2 + offset;
+  const start = half - Math.ceil(half / grid) * grid;
+  return _.range(start, view, grid);
 }
 
-export function gridRowPoints(gridStep, viewSize, viewOffset = 0) {
-  const middle = viewSize / 2 + viewOffset;
-  return _.range(
-    middle - Math.ceil(middle / gridStep) * gridStep,
-    viewSize,
-    gridStep
-  )
-    .map((start) => {
-      const distance = (start - middle) / gridStep + 0.5;
-      return {
-        view: { start, end: start + gridStep, middle: start + gridStep / 2 },
-        grid: { index: Math.sign(distance) * Math.ceil(Math.abs(distance)) }
-      };
-    });
+function gridSteps(grid, view, offset) {
+  const middle = view / 2 + offset;
+  return _.range(middle - Math.ceil(middle / grid) * grid, view, grid);
+}
+
+function gridDistance(x, grid, view, offset) {
+  const middle = view / 2 + offset;
+  const distance = (x - middle) / grid + 0.5;
+  return Math.sign(distance) * Math.ceil(Math.abs(distance));
+}
+
+export function gridRowPoints(grid, view, offset = 0) {
+  return gridSteps(grid, view, offset)
+    .map((left) => ({
+      view: { left, right: left + grid, center: left + grid / 2 },
+      grid: { row: gridDistance(left, grid, view, offset) }
+    }));
 }
 
 export function gridPoints(
@@ -30,36 +33,20 @@ export function gridPoints(
   viewOffsetX = 0,
   viewOffsetY = 0
 ) {
-  const middleX = viewWidth / 2 + viewOffsetX;
-  const middleY = viewHeight / 2 + viewOffsetY;
-  return _.range(
-    middleY - Math.ceil(middleY / gridHeight) * gridHeight,
-    viewHeight,
-    gridHeight
-  )
-    .flatMap((y) => {
-      const distanceY = (y - middleY) / gridHeight + 0.5;
-      return _.range(
-        middleX - Math.ceil(middleX / gridWidth) * gridWidth,
-        viewWidth,
-        gridWidth
-      )
-        .map((x) => {
-          const distanceX = (x - middleX) / gridWidth + 0.5;
-          return {
-            view: {
-              left: x,
-              right: x + gridWidth,
-              top: y,
-              bottom: y + gridHeight,
-              middle: y + gridHeight / 2,
-              center: x + gridWidth / 2
-            },
-            grid: {
-              col: Math.sign(distanceX) * Math.ceil(Math.abs(distanceX)),
-              row: Math.sign(distanceY) * Math.ceil(Math.abs(distanceY))
-            }
-          };
-        });
-    });
+  return gridSteps(gridHeight, viewHeight, viewOffsetY)
+    .flatMap((y) => gridSteps(gridWidth, viewWidth, viewOffsetX)
+      .map((x) => ({
+        view: {
+          left: x,
+          right: x + gridWidth,
+          top: y,
+          bottom: y + gridHeight,
+          middle: y + gridHeight / 2,
+          center: x + gridWidth / 2
+        },
+        grid: {
+          col: gridDistance(x, gridWidth, viewWidth, viewOffsetX),
+          row: gridDistance(y, gridHeight, viewHeight, viewOffsetY)
+        }
+      })));
 }
