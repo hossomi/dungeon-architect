@@ -18,7 +18,7 @@
   "rules": {
     "class-methods-use-this": "off",
     "no-param-reassign": "off",
-    "function-paren-newline": ["error", "never"],
+    "function-paren-newline": ["error", "multiline-arguments"],
     "arrow-parens": ["error", "always"],
     "arrow-body-style": [2, "as-needed"],
     "comma-dangle": ["error", "never"],
