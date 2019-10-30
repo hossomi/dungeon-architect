@@ -10,12 +10,14 @@ process.noDeprecation = true;
 module.exports = (options) => ({
   mode: options.mode,
   entry: options.entry,
-  output: Object.assign({
-    // Compile into js/build.js
-    path: path.resolve(process.cwd(), 'build'),
-    publicPath: '/'
-  },
-  options.output), // Merge with env dependent settings
+  output: Object.assign(
+    {
+      // Compile into js/build.js
+      path: path.resolve(process.cwd(), 'build'),
+      publicPath: '/'
+    },
+    options.output
+  ), // Merge with env dependent settings
   module: {
     rules: [
       {
