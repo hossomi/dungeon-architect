@@ -1,11 +1,5 @@
 import _ from 'lodash';
 
-export function centeredSteps(view, grid, offset = 0) {
-  const half = view / 2 + offset;
-  const start = half - Math.ceil(half / grid) * grid;
-  return _.range(start, view, grid);
-}
-
 function gridSteps(grid, view, offset) {
   const middle = view / 2 + offset;
   return _.range(middle - Math.ceil(middle / grid) * grid, view, grid);

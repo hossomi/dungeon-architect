@@ -2,19 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
 
-import { centeredSteps } from 'utils/geometry';
+import { gridPoints } from 'utils/geometry';
 
 export default class Grid extends React.Component {
-  makeCell(x, y, width, height) {
+  makeCell(p) {
     return (
       <rect
         className="grid-cell"
-        key={`${x},${y}`}
-        x={x}
-        y={y}
-        width={width}
-        height={height}
-        onClick={() => console.log('Clicked!', x, y)} />
+        key={`${p.grid.row},${p.grid.col}`}
+        x={p.view.left}
+        y={p.view.top}
+        width={p.view.right - p.view.left}
+        height={p.view.bottom - p.view.top}
+        onClick={() => console.log('Clicked!', p.grid.row, p.grid.col)} />
     );
   }
 
@@ -23,21 +23,17 @@ export default class Grid extends React.Component {
       x, y, width, height, cellWidth, cellHeight
     } = this.props;
 
-    const svg = (
+    return (
       <svg
         x={x}
         y={y}
         width={width}
         height={height}
         viewBox={`0 0 ${width} ${height}`}>
-        {centeredSteps(width, cellWidth)
-          .map((cx) => centeredSteps(height, cellHeight)
-            .map((cy) => this.makeCell(cx, cy, cellWidth, cellHeight)))}
+        {gridPoints(cellWidth, cellHeight, width, height)
+          .map(this.makeCell)}
       </svg>
     );
-
-    // svg.addEventListener('mousedown', (x) => console.log('down'));
-    return svg;
   }
 }
 
