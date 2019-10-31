@@ -31,7 +31,7 @@ export default class Grid extends React.Component {
         height={height}
         viewBox={`0 0 ${width} ${height}`}>
         {gridPoints(cellWidth, cellHeight, width, height)
-          .map((p) => this.makeCell(p))}
+          .map(this.makeCell)}
       </svg>
     );
   }
