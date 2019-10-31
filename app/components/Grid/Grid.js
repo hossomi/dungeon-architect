@@ -34,7 +34,10 @@ export default class Grid extends React.Component {
     }
   };
 
-  isCellSelected = (row, col) => this.state.selection.cells.some((cell) => cell[0] === row && cell[1] === col);
+  isCellSelected = (row, col) => {
+    const { selection } = this.state;
+    return selection.cells.some((cell) => cell[0] === row && cell[1] === col);
+  };
 
   onCellMouseDown = (row, col) => {
     this.selectCell(row, col);
@@ -46,7 +49,8 @@ export default class Grid extends React.Component {
   };
 
   onCellHover = (row, col) => {
-    if (this.state.selection.active) {
+    const { selection } = this.state;
+    if (selection.active) {
       this.selectCell(row, col);
     }
   };
