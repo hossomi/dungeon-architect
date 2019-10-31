@@ -14,7 +14,16 @@ function gridDistance(x, grid, view, offset) {
 export function gridRowPoints(grid, view, offset = 0) {
   return gridSteps(grid, view, offset)
     .map((left) => ({
-      view: { left, right: left + grid, center: left + grid / 2 },
+      view: {
+        left,
+        right: left + grid,
+        get center() {
+          return (this.left + this.right) / 2;
+        },
+        get width() {
+          return this.right - this.left;
+        }
+      },
       grid: { row: gridDistance(left, grid, view, offset) }
     }));
 }
@@ -35,8 +44,18 @@ export function gridPoints(
           right: x + gridWidth,
           top: y,
           bottom: y + gridHeight,
-          middle: y + gridHeight / 2,
-          center: x + gridWidth / 2
+          get middle() {
+            return (this.top + this.bottom) / 2;
+          },
+          get center() {
+            return (this.left + this.right) / 2;
+          },
+          get width() {
+            return this.right - this.left;
+          },
+          get height() {
+            return this.bottom - this.top;
+          }
         },
         grid: {
           col: gridDistance(x, gridWidth, viewWidth, viewOffsetX),

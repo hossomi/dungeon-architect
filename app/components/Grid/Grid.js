@@ -12,8 +12,8 @@ export default class Grid extends React.Component {
         key={`${p.grid.row},${p.grid.col}`}
         x={p.view.left}
         y={p.view.top}
-        width={p.view.right - p.view.left}
-        height={p.view.bottom - p.view.top}
+        width={p.view.width}
+        height={p.view.height}
         onClick={() => console.log('Clicked!', p.grid.row, p.grid.col)} />
     );
   }
@@ -31,7 +31,7 @@ export default class Grid extends React.Component {
         height={height}
         viewBox={`0 0 ${width} ${height}`}>
         {gridPoints(cellWidth, cellHeight, width, height)
-          .map(this.makeCell)}
+          .map((p) => this.makeCell(p))}
       </svg>
     );
   }
