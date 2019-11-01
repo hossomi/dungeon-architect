@@ -1,18 +1,28 @@
 svg {
-  rect.grid-cell {
+  .grid-cell {
     fill: white;
     stroke: black;
   }
 
-  rect.grid-cell:hover {
-    fill: #80ff80;
+  .grid-cell:hover {
+    fill: #a0a0a0;
   }
 
-  rect.grid-cell-selected {
+  .grid-group {
+    // fill: #8080ff;
+    stroke-width: 0;
+  }
+
+  .grid-group:hover {
+    fill: #a0a0ff;
+  }
+
+  .grid-selected {
     fill: #ff8080;
+    stroke-width: 0;
   }
 
-  rect.grid-cell-selected:hover {
-    fill: #ffff80;
+  .grid-selected:hover {
+    fill: #ffa0a0;
   }
 }
