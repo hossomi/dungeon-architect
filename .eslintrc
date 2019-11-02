@@ -1,13 +1,20 @@
 {
   "parser": "babel-eslint",
-  "extends": ["airbnb", "plugin:react/recommended"],
+  "extends": [
+    "airbnb",
+    "plugin:react/recommended"
+  ],
   "env": {
     "browser": true,
     "node": true,
     "jest": true,
     "es6": true
   },
-  "plugins": ["redux-saga", "react", "jsx-a11y"],
+  "plugins": [
+    "redux-saga",
+    "react",
+    "jsx-a11y"
+  ],
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
@@ -18,10 +25,26 @@
   "rules": {
     "class-methods-use-this": "off",
     "no-param-reassign": "off",
-    "function-paren-newline": ["error", "multiline"],
-    "arrow-parens": ["error", "always"],
-    "arrow-body-style": [2, "as-needed"],
-    "comma-dangle": ["error", "never"],
+    "function-paren-newline": [
+      "error",
+      "consistent"
+    ],
+    "function-call-argument-newline": [
+      "error",
+      "consistent"
+    ],
+    "arrow-parens": [
+      "error",
+      "always"
+    ],
+    "arrow-body-style": [
+      2,
+      "as-needed"
+    ],
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
     "import/no-extraneous-dependencies": 0,
     "import/prefer-default-export": 0,
     "indent": [
@@ -32,14 +55,28 @@
       }
     ],
     "max-len": 0,
-    "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 1 }],
+    "newline-per-chained-call": [
+      "error",
+      {
+        "ignoreChainWithDepth": 1
+      }
+    ],
     "no-console": 1,
     "react/forbid-prop-types": 0,
-    "react/jsx-closing-bracket-location": [1, "after-props"],
+    "react/jsx-closing-bracket-location": [
+      1,
+      "after-props"
+    ],
     "react/jsx-curly-brace-presence": "off",
-    "react/jsx-first-prop-new-line": [2, "multiline"],
+    "react/jsx-first-prop-new-line": [
+      2,
+      "multiline"
+    ],
     "react/jsx-filename-extension": 0,
-    "react/jsx-indent": [2, 2],
+    "react/jsx-indent": [
+      2,
+      2
+    ],
     "react/require-default-props": 0,
     "react/self-closing-comp": 0,
     "redux-saga/no-yield-in-race": 2,

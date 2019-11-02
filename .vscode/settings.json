@@ -1,5 +1,5 @@
 {
   "editor.formatOnSave": true,
-  "prettier.eslintIntegration": true,
-  "eslint.enable": false
+  "eslint.autoFixOnSave": true,
+  "files.autoSave": "onFocusChange"
 }
