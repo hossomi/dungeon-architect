@@ -9,9 +9,9 @@ import getInjectors from './reducerInjectors';
  */
 export default ({ key, reducer }) => (WrappedComponent) => {
   class ReducerInjector extends React.Component {
-    static WrappedComponent = WrappedComponent;
-
     static contextType = ReactReduxContext;
+
+    static WrappedComponent = WrappedComponent;
 
     static displayName = `withReducer(${WrappedComponent.displayName
       || WrappedComponent.name

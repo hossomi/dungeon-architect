@@ -77,8 +77,11 @@
       2,
       2
     ],
+    "react/jsx-props-no-spreading": "off",
     "react/require-default-props": 0,
     "react/self-closing-comp": 0,
+    "react/sort-comp": "off",
+    "react/static-property-placement": "off",
     "redux-saga/no-yield-in-race": 2,
     "redux-saga/yield-effects": 2,
     "jsx-a11y/anchor-is-valid": 0,
