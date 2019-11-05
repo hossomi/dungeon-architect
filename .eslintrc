@@ -58,7 +58,13 @@
     "newline-per-chained-call": [
       "error",
       {
-        "ignoreChainWithDepth": 1
+        "ignoreChainWithDepth": 2
+      }
+    ],
+    "object-curly-newline": [
+      "error",
+      {
+        "consistent": true
       }
     ],
     "no-console": 1,

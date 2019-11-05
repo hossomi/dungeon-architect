@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import Grid from 'components/Grid';
 import Ruler from 'components/Ruler';
@@ -31,6 +32,7 @@ export default class OverviewPage extends React.Component {
 
   render() {
     const { width, height } = this.state;
+    const { onEnableSelection, onSelectCell, onCreateRoom } = this.props;
 
     const hlength = Math.max(width - RULER_WIDTH * 2, 0);
     const vlength = Math.max(height - RULER_WIDTH * 2, 0);
@@ -78,9 +80,18 @@ export default class OverviewPage extends React.Component {
             width={hlength}
             height={vlength}
             cellWidth={cellWidth}
-            cellHeight={cellHeight} />
+            cellHeight={cellHeight}
+            onEnableSelection={onEnableSelection}
+            onSelectCell={onSelectCell}
+            onCreateRoom={onCreateRoom} />
         </svg>
       </div>
     );
   }
 }
+
+OverviewPage.propTypes = {
+  onEnableSelection: PropTypes.func,
+  onSelectCell: PropTypes.func,
+  onCreateRoom: PropTypes.func
+};
