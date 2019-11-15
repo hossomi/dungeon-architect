@@ -5,7 +5,7 @@ class Cell {
     this.col = col;
   }
 
-  static equals = (a, b) => {
+  static equals(a, b) {
     const view = (a.view && b.view)
       ? a.view.x === b.view.x
       && a.view.y === b.view.y
@@ -18,33 +18,35 @@ class Cell {
       && view;
   }
 
-  withPosition = (x, y, width, height) => ({
-    ...this,
-    view: {
-      x,
-      y,
-      width,
-      height,
-      left: x,
-      right: x + width,
-      top: y,
-      bottom: y - height
-    }
-  });
+  withPosition(x, y, width, height) {
+    return {
+      ...this,
+      view: {
+        x,
+        y,
+        width,
+        height,
+        left: x,
+        right: x + width,
+        top: y,
+        bottom: y + height
+      }
+    };
+  }
 
-  inView = (
+  inView(
     cellWidth, cellHeight,
     viewWidth, viewHeight,
     offsetX = 0, offsetY = 0
-  ) => {
+  ) {
     const x = ((viewWidth - cellWidth) / 2) - offsetX + (this.col * cellWidth);
-    const y = ((viewHeight - cellHeight) / 2) + offsetY + (this.row * cellHeight);
+    const y = ((viewHeight - cellHeight) / 2) + offsetY - (this.row * cellHeight);
     return this.withPosition(x, y, cellWidth, cellHeight);
   }
 
-  is = (row, col) => this.row === row && this.col === col;
+  is(row, col) { return this.row === row && this.col === col; }
 
-  equals = (other) => Cell.equals(this, other)
+  equals(other) { return Cell.equals(this, other); }
 }
 
 export default Cell;
