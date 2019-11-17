@@ -9,6 +9,17 @@ const initialState = {
   rooms: []
 };
 
+function isCellSelected(state, row, col) {
+  return state.selection.cells
+    .find((c) => c.row === row && c.col === col);
+}
+
+function getCellRoom(state, row, col) {
+  return state.rooms
+    .find((r) => r.cells
+      .find((c) => c.row === row && c.col === col));
+}
+
 function overviewReducer(state = initialState, action) {
   switch (action.type) {
     case ENABLE_SELECTION:
@@ -24,6 +35,10 @@ function overviewReducer(state = initialState, action) {
         }
       });
     case SELECT_CELL:
+      if (isCellSelected(state, action.row, action.col)
+        || getCellRoom(state, action.row, action.col)) {
+        return state;
+      }
       return update(state, {
         selection: {
           cells: {
@@ -35,6 +50,9 @@ function overviewReducer(state = initialState, action) {
         }
       });
     case CREATE_ROOM:
+      if (action.cells.length === 0) {
+        return state;
+      }
       return update(state, {
         rooms: {
           $push: [{

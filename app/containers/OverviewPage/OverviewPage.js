@@ -31,6 +31,35 @@ export default class OverviewPage extends React.Component {
     });
   };
 
+  selectCellIfPossible = (cell) => {
+    const {
+      selection,
+      isCellSelected,
+      getCellRoom,
+      selectCell
+    } = this.props;
+
+    console.log(selection.enabled, !isCellSelected(cell.row, cell.col), !getCellRoom(cell.row, cell.col));
+    if (selection.enabled
+      && !isCellSelected(cell.row, cell.col)
+      && !getCellRoom(cell.row, cell.col)) {
+      selectCell(cell.row, cell.col);
+    }
+  }
+
+  createRoomAndClearSelection = () => {
+    const {
+      selection,
+      createRoom,
+      clearSelection
+    } = this.props;
+
+    if (selection.cells.length > 0) {
+      createRoom(selection.cells);
+      clearSelection();
+    }
+  }
+
   render() {
     const { width, height } = this.state;
     const {
@@ -39,9 +68,7 @@ export default class OverviewPage extends React.Component {
       isCellSelected,
       getCellRoom,
       enableSelection,
-      clearSelection,
-      selectCell,
-      createRoom
+      selectCell
     } = this.props;
 
     const hlength = Math.max(width - RULER_WIDTH * 2, 0);
@@ -55,7 +82,7 @@ export default class OverviewPage extends React.Component {
           <title>Overview</title>
         </Helmet>
 
-        <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
+        <svg width={width} height={height}>
           <Ruler
             x={RULER_WIDTH}
             y={0}
@@ -92,17 +119,19 @@ export default class OverviewPage extends React.Component {
             cellWidth={cellWidth}
             cellHeight={cellHeight}
             selectedCells={selection.cells}
-            cellGroups={rooms}
+            groupedCells={rooms}
             onCellMouseDown={({ cell }) => {
-              selectCell(cell.row, cell.col);
+              if (!isCellSelected(cell.row, cell.col)
+                && !getCellRoom(cell.row, cell.col)) {
+                selectCell(cell.row, cell.col);
+              }
               enableSelection(true);
             }}
             onCellMouseUp={() => {
-              createRoom(selection.cells);
+              this.createRoomAndClearSelection();
               enableSelection(false);
-              clearSelection();
             }}
-            onCellMouseHover={({ cell }) => {
+            onCellMouseOver={({ cell }) => {
               if (selection.enabled
                 && !isCellSelected(cell.row, cell.col)
                 && !getCellRoom(cell.row, cell.col)) {

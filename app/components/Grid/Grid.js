@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
 
-import Cell from 'models/Cell';
-import CellGroup from 'models/CellGroup';
 import { getViewCells } from 'utils/geometry';
 
 function isCell(cell) {
@@ -17,9 +15,9 @@ export default class Grid extends React.Component {
   };
 
   getCellGroup = (cell) => {
-    const { cellGroups } = this.props;
+    const { groupedCells } = this.props;
     const filter = isCell(cell);
-    return cellGroups.find((group) => group.cells.find(filter));
+    return groupedCells.find((group) => group.cells.find(filter));
   };
 
   getCellClass = (cell) => {
@@ -29,7 +27,9 @@ export default class Grid extends React.Component {
 
   renderCell = (cell, fill) => {
     const {
-      onCellMouseDown, onCellMouseUp, onCellMouseHover
+      onCellMouseDown,
+      onCellMouseUp,
+      onCellMouseOver
     } = this.props;
 
     const group = this.getCellGroup(cell);
@@ -46,7 +46,7 @@ export default class Grid extends React.Component {
         fill={fill || ''}
         onMouseDown={() => onCellMouseDown(event)}
         onMouseUp={() => onCellMouseUp(event)}
-        onMouseEnter={() => onCellMouseHover(event)} />
+        onMouseEnter={() => onCellMouseOver(event)} />
     );
   };
 
@@ -76,18 +76,16 @@ Grid.propTypes = {
   cellWidth: PropTypes.number,
   cellHeight: PropTypes.number,
   selectedCells: PropTypes.array,
-  cellGroups: PropTypes.array,
+  groupedCells: PropTypes.array,
   onCellMouseDown: PropTypes.func,
   onCellMouseUp: PropTypes.func,
-  onCellMouseHover: PropTypes.func
+  onCellMouseOver: PropTypes.func
 };
 
 Grid.defaultProps = {
   selectedCells: [],
-  cellGroups: [
-    new CellGroup([new Cell(1, 1), new Cell(1, 2)], '#ff00ff'),
-    new CellGroup([new Cell(2, 2), new Cell(3, 2)], '#ffff00')],
+  groupedCells: [],
   onCellMouseDown: () => { },
   onCellMouseUp: () => { },
-  onCellMouseHover: () => { }
+  onCellMouseOver: () => { }
 };
