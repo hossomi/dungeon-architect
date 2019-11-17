@@ -82,26 +82,33 @@ function roundZero(x) {
   return x === 0 ? 0 : x;
 }
 
-function getViewCellsRangeSingle(cell, view, offset) {
+function getViewCellsRange1D(cell, view, offset = 0) {
   const viewRatio = Math.max(1, view) / cell;
   const offsetRatio = offset / cell;
   const min = roundZero(-Math.ceil(viewRatio / 2 - offsetRatio - 0.5));
-  const max = Math.ceil(viewRatio / 2 + offsetRatio - 0.5);
+  const max = roundZero(Math.ceil(viewRatio / 2 + offsetRatio - 0.5));
   return { min, max, count: max - min + 1 };
 }
 
-export function getViewCellsRange(
+function getViewCellsRange2D(
   cellWidth, cellHeight,
   viewWidth, viewHeight,
   offsetX = 0, offsetY = 0
 ) {
   return {
-    cols: getViewCellsRangeSingle(cellWidth, viewWidth, offsetX),
-    rows: getViewCellsRangeSingle(cellHeight, viewHeight, offsetY)
+    cols: getViewCellsRange1D(cellWidth, viewWidth, offsetX),
+    rows: getViewCellsRange1D(cellHeight, viewHeight, offsetY)
   };
 }
 
-export function getViewCells(
+export function getViewCellsRange(...rest) {
+  if (rest.length <= 3) {
+    return getViewCellsRange1D(...rest);
+  }
+  return getViewCellsRange2D(...rest);
+}
+
+function getViewCells2D(
   cellWidth, cellHeight,
   viewWidth, viewHeight,
   offsetX = 0, offsetY = 0
@@ -111,4 +118,15 @@ export function getViewCells(
     .flatMap((row) => _.range(range.cols.min, range.cols.max + 1, 1)
       .map((col) => new Cell(row, col)
         .inView(cellWidth, cellHeight, viewWidth, viewHeight, offsetX, offsetY)));
+}
+
+function getViewCells1D(cell, view, offset = 0) {
+  return getViewCells2D(cell, 1, view, 1, offset, 0);
+}
+
+export function getViewCells(...rest) {
+  if (rest.length <= 3) {
+    return getViewCells1D(...rest);
+  }
+  return getViewCells2D(...rest);
 }
