@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
 
-import { gridRowPoints } from 'utils/geometry';
+import { getViewCells } from 'utils/geometry';
 
 const HTICK = {
   top: (width) => ({
@@ -28,32 +28,32 @@ const VTICK = {
   })
 };
 
-function htick(x, value, width, position) {
+function htick(cell, width, position) {
   const p = HTICK[position](width);
 
   return (
-    <g key={x}>
-      <line className="ruler-tick" x1={x} x2={x} y1={0} y2={width} />
-      <text className="ruler-tick" x={x + 2} y={p.y} baselineShift={p.shift}>
-        {value}
+    <g key={cell.col}>
+      <line className="ruler-tick" x1={cell.view.x} x2={cell.view.x} y1={0} y2={cell.view.width} />
+      <text className="ruler-tick" x={cell.view.x + 2} y={p.y} baselineShift={p.shift}>
+        {cell.col}
       </text>
     </g>
   );
 }
 
-function vtick(y, value, width, position) {
-  const p = VTICK[position](y, width);
+function vtick(cell, width, position) {
+  const p = VTICK[position](cell.view.x, width);
 
   return (
-    <g key={y}>
-      <line className="ruler-tick" x1={0} x2={width} y1={y} y2={y} />
+    <g key={cell.col}>
+      <line className="ruler-tick" x1={0} x2={cell.view.width} y1={cell.view.x} y2={cell.view.x} />
       <text
         className="ruler-tick"
         x={2}
         y={p.y}
-        transform={`rotate(90, ${0}, ${y})`}
+        transform={`rotate(90, ${0}, ${cell.view.x})`}
         baselineShift={p.shift}>
-        {value}
+        {cell.col}
       </text>
     </g>
   );
@@ -113,9 +113,9 @@ export default class Ruler extends React.Component {
     return (
       <svg {...p.svg}>
         <rect className="ruler-background" width="100%" height="100%" />
-        {gridRowPoints(step, length)
+        {getViewCells(step, length)
           // FIXME: include offset somehow in value
-          .map((g) => p.tick(g.view.left, g.view.left - length / 2, width, position))}
+          .map((cell) => p.tick(cell, width, position))}
       </svg>
     );
   }

@@ -4,7 +4,7 @@ import './style.scss';
 
 import Cell from 'models/Cell';
 import CellGroup from 'models/CellGroup';
-import { gridPoints } from 'utils/geometry';
+import { getViewCells } from 'utils/geometry';
 
 export default class Grid extends React.Component {
   isCellSelected = (row, col) => {
@@ -22,23 +22,22 @@ export default class Grid extends React.Component {
     return this.isCellSelected(row, col) ? `${cn} grid-selected` : cn;
   };
 
-  renderCell = (row, col, x, y, fill) => {
+  renderCell = (cell, fill) => {
     const {
-      cellWidth, cellHeight, onCellMouseDown, onCellMouseUp, onCellMouseHover
+      onCellMouseDown, onCellMouseUp, onCellMouseHover
     } = this.props;
 
-    const cell = new Cell(row, col);
-    const group = this.getCellGroup(row, col);
+    const group = this.getCellGroup(cell.row, cell.col);
     const event = { cell, group };
 
     return (
       <rect
-        className={this.getCellClass(row, col)}
-        key={`${row},${col}`}
-        x={x}
-        y={y}
-        width={cellWidth}
-        height={cellHeight}
+        className={this.getCellClass(cell.row, cell.col)}
+        key={`${cell.row},${cell.col}`}
+        x={cell.view.x}
+        y={cell.view.y}
+        width={cell.view.width}
+        height={cell.view.height}
         fill={fill || ''}
         onMouseDown={() => onCellMouseDown(event)}
         onMouseUp={() => onCellMouseUp(event)}
@@ -53,18 +52,12 @@ export default class Grid extends React.Component {
 
     return (
       <svg x={x} y={y} width={width} height={height}>
-        {gridPoints(cellWidth, cellHeight, width, height)
-          .filter((p) => this.getCellGroup(p.grid.row, p.grid.col))
-          .map((p) => this.renderCell(
-            p.grid.row,
-            p.grid.col,
-            p.view.left,
-            p.view.top,
-            this.getCellGroup(p.grid.row, p.grid.col).color
-          ))}
-        {gridPoints(cellWidth, cellHeight, width, height)
-          .filter((p) => !this.getCellGroup(p.grid.row, p.grid.col))
-          .map((p) => this.renderCell(p.grid.row, p.grid.col, p.view.left, p.view.top))}
+        {getViewCells(cellWidth, cellHeight, width, height)
+          .filter((cell) => this.getCellGroup(cell.row, cell.col))
+          .map((cell) => this.renderCell(cell, this.getCellGroup(cell.row, cell.col).color))}
+        {getViewCells(cellWidth, cellHeight, width, height)
+          .filter((cell) => !this.getCellGroup(cell.row, cell.col))
+          .map((cell) => this.renderCell(cell))}
       </svg>
     );
   }
