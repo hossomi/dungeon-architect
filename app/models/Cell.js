@@ -1,8 +1,13 @@
 
 class Cell {
   constructor(row, col) {
-    this.row = row;
-    this.col = col;
+    if (col !== undefined) {
+      this.row = row;
+      this.col = col;
+    } else {
+      this.row = 0;
+      this.col = row;
+    }
   }
 
   static equals(a, b) {
@@ -18,7 +23,19 @@ class Cell {
       && view;
   }
 
-  withPosition(x, y, width, height) {
+  withPosition1D(x, width) {
+    return {
+      ...this,
+      view: {
+        x,
+        width,
+        left: x,
+        right: x + width
+      }
+    };
+  }
+
+  withPosition2D(x, y, width, height) {
     return {
       ...this,
       view: {
@@ -34,7 +51,22 @@ class Cell {
     };
   }
 
-  inView(
+  withPosition(...args) {
+    return args.length <= 2
+      ? this.withPosition1D(...args)
+      : this.withPosition2D(...args);
+  }
+
+  inView1D(
+    cell,
+    view,
+    offset = 0
+  ) {
+    const x = ((view - cell) / 2) - offset + (this.col * cell);
+    return this.withPosition(x, cell);
+  }
+
+  inView2D(
     cellWidth, cellHeight,
     viewWidth, viewHeight,
     offsetX = 0, offsetY = 0
@@ -42,6 +74,12 @@ class Cell {
     const x = ((viewWidth - cellWidth) / 2) - offsetX + (this.col * cellWidth);
     const y = ((viewHeight - cellHeight) / 2) + offsetY - (this.row * cellHeight);
     return this.withPosition(x, y, cellWidth, cellHeight);
+  }
+
+  inView(...args) {
+    return args.length <= 3
+      ? this.inView1D(...args)
+      : this.inView2D(...args);
   }
 
   is(row, col) { return this.row === row && this.col === col; }

@@ -101,11 +101,10 @@ function getViewCellsRange2D(
   };
 }
 
-export function getViewCellsRange(...rest) {
-  if (rest.length <= 3) {
-    return getViewCellsRange1D(...rest);
-  }
-  return getViewCellsRange2D(...rest);
+export function getViewCellsRange(...args) {
+  return args.length <= 3
+    ? getViewCellsRange1D(...args)
+    : getViewCellsRange2D(...args);
 }
 
 function getViewCells2D(
@@ -121,12 +120,14 @@ function getViewCells2D(
 }
 
 function getViewCells1D(cell, view, offset = 0) {
-  return getViewCells2D(cell, 1, view, 1, offset, 0);
+  const range = getViewCellsRange(cell, view, offset);
+  return _.range(range.min, range.max + 1, 1)
+    .map((col) => new Cell(col)
+      .inView(cell, view, offset));
 }
 
-export function getViewCells(...rest) {
-  if (rest.length <= 3) {
-    return getViewCells1D(...rest);
-  }
-  return getViewCells2D(...rest);
+export function getViewCells(...args) {
+  return args.length <= 3
+    ? getViewCells1D(...args)
+    : getViewCells2D(...args);
 }

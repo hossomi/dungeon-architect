@@ -431,132 +431,74 @@ describe('geometry', () => {
 
   describe('getViewCells', () => {
     it('view = 1; offset = 0', () => {
-      expect(getViewCells(50, 25, 50, 25))
+      expect(getViewCells(50, 50))
         .toElementsEqualWith([
-          new Cell(0, 0).withPosition(0, 0, 50, 25)
+          new Cell(0).withPosition(0, 50)
         ], Cell.equals);
     });
 
     it('view = 1.2; offset = 0', () => {
-      expect(getViewCells(50, 25, 60, 30))
+      expect(getViewCells(50, 60))
         .toElementsEqualWith([
-          new Cell(-1, -1).withPosition(-45, 27.5, 50, 25),
-          new Cell(-1, 0).withPosition(5, 27.5, 50, 25),
-          new Cell(-1, 1).withPosition(55, 27.5, 50, 25),
-          new Cell(0, -1).withPosition(-45, 2.5, 50, 25),
-          new Cell(0, 0).withPosition(5, 2.5, 50, 25),
-          new Cell(0, 1).withPosition(55, 2.5, 50, 25),
-          new Cell(1, -1).withPosition(-45, -22.5, 50, 25),
-          new Cell(1, 0).withPosition(5, -22.5, 50, 25),
-          new Cell(1, 1).withPosition(55, -22.5, 50, 25)
+          new Cell(-1).withPosition(-45, 50),
+          new Cell(0).withPosition(5, 50),
+          new Cell(1).withPosition(55, 50)
         ], Cell.equals);
     });
 
     it('view = 2; offset = 0', () => {
-      expect(getViewCells(50, 25, 100, 50))
+      expect(getViewCells(50, 100))
         .toElementsEqualWith([
-          new Cell(-1, -1).withPosition(-25, 37.5, 50, 25),
-          new Cell(-1, 0).withPosition(25, 37.5, 50, 25),
-          new Cell(-1, 1).withPosition(75, 37.5, 50, 25),
-          new Cell(0, -1).withPosition(-25, 12.5, 50, 25),
-          new Cell(0, 0).withPosition(25, 12.5, 50, 25),
-          new Cell(0, 1).withPosition(75, 12.5, 50, 25),
-          new Cell(1, -1).withPosition(-25, -12.5, 50, 25),
-          new Cell(1, 0).withPosition(25, -12.5, 50, 25),
-          new Cell(1, 1).withPosition(75, -12.5, 50, 25)
+          new Cell(-1).withPosition(-25, 50),
+          new Cell(0).withPosition(25, 50),
+          new Cell(1).withPosition(75, 50)
         ], Cell.equals);
     });
 
     it('view = 3; offset = 0', () => {
-      expect(getViewCells(50, 25, 150, 75))
+      expect(getViewCells(50, 150))
         .toElementsEqualWith([
-          new Cell(-1, -1).withPosition(0, 50, 50, 25),
-          new Cell(-1, 0).withPosition(50, 50, 50, 25),
-          new Cell(-1, 1).withPosition(100, 50, 50, 25),
-          new Cell(0, -1).withPosition(0, 25, 50, 25),
-          new Cell(0, 0).withPosition(50, 25, 50, 25),
-          new Cell(0, 1).withPosition(100, 25, 50, 25),
-          new Cell(1, -1).withPosition(0, 0, 50, 25),
-          new Cell(1, 0).withPosition(50, 0, 50, 25),
-          new Cell(1, 1).withPosition(100, 0, 50, 25)
+          new Cell(-1).withPosition(0, 50),
+          new Cell(0).withPosition(50, 50),
+          new Cell(1).withPosition(100, 50)
         ], Cell.equals);
     });
 
     it('view = 1; offset = 0.2', () => {
-      expect(getViewCells(50, 25, 50, 25, 10, 5))
+      expect(getViewCells(50, 50, 10))
         .toElementsEqualWith([
-          new Cell(0, 0).withPosition(-10, 5, 50, 25),
-          new Cell(0, 1).withPosition(40, 5, 50, 25),
-          new Cell(1, 0).withPosition(-10, -20, 50, 25),
-          new Cell(1, 1).withPosition(40, -20, 50, 25)
+          new Cell(0).withPosition(-10, 50),
+          new Cell(1).withPosition(40, 50)
         ], Cell.equals);
     });
 
     it('view = 2; offset = 0.2', () => {
-      expect(getViewCells(50, 25, 100, 50, 10, 5))
+      expect(getViewCells(50, 100, 10))
         .toElementsEqualWith([
-          new Cell(-1, -1).withPosition(-35, 42.5, 50, 25),
-          new Cell(-1, 0).withPosition(15, 42.5, 50, 25),
-          new Cell(-1, 1).withPosition(65, 42.5, 50, 25),
-          new Cell(0, -1).withPosition(-35, 17.5, 50, 25),
-          new Cell(0, 0).withPosition(15, 17.5, 50, 25),
-          new Cell(0, 1).withPosition(65, 17.5, 50, 25),
-          new Cell(1, -1).withPosition(-35, -7.5, 50, 25),
-          new Cell(1, 0).withPosition(15, -7.5, 50, 25),
-          new Cell(1, 1).withPosition(65, -7.5, 50, 25)
+          new Cell(-1).withPosition(-35, 50),
+          new Cell(0).withPosition(15, 50),
+          new Cell(1).withPosition(65, 50)
         ], Cell.equals);
     });
 
     it('view = 2; offset = 0.5', () => {
-      expect(getViewCells(50, 25, 100, 50, 25, 12.5))
+      expect(getViewCells(50, 100, 25))
         .toElementsEqualWith([
-          new Cell(0, 0).withPosition(0, 25, 50, 25),
-          new Cell(0, 1).withPosition(50, 25, 50, 25),
-          new Cell(1, 0).withPosition(0, 0, 50, 25),
-          new Cell(1, 1).withPosition(50, 0, 50, 25)
+          new Cell(0).withPosition(0, 50),
+          new Cell(1).withPosition(50, 50)
         ], Cell.equals);
     });
 
     it('view = 2; offset = 1', () => {
-      expect(getViewCells(50, 25, 100, 50, 50, 25))
+      expect(getViewCells(50, 100, 50))
         .toElementsEqualWith([
-          new Cell(0, 0).withPosition(-25, 37.5, 50, 25),
-          new Cell(0, 1).withPosition(25, 37.5, 50, 25),
-          new Cell(0, 2).withPosition(75, 37.5, 50, 25),
-          new Cell(1, 0).withPosition(-25, 12.5, 50, 25),
-          new Cell(1, 1).withPosition(25, 12.5, 50, 25),
-          new Cell(1, 2).withPosition(75, 12.5, 50, 25),
-          new Cell(2, 0).withPosition(-25, -12.5, 50, 25),
-          new Cell(2, 1).withPosition(25, -12.5, 50, 25),
-          new Cell(2, 2).withPosition(75, -12.5, 50, 25)
-        ], Cell.equals);
-    });
-  });
-
-  describe('getRowCells', () => {
-    it('view = 1; offset = 0', () => {
-      expect(getViewCells(50, 25, 50, 25))
-        .toElementsEqualWith([
-          new Cell(0, 0).withPosition(0, 0, 50, 25)
+          new Cell(0).withPosition(-25, 50),
+          new Cell(1).withPosition(25, 50),
+          new Cell(2).withPosition(75, 50)
         ], Cell.equals);
     });
 
-    it('view = 1.2; offset = 0', () => {
-      expect(getViewCells(50, 25, 60, 30))
-        .toElementsEqualWith([
-          new Cell(-1, -1).withPosition(-45, 27.5, 50, 25),
-          new Cell(-1, 0).withPosition(5, 27.5, 50, 25),
-          new Cell(-1, 1).withPosition(55, 27.5, 50, 25),
-          new Cell(0, -1).withPosition(-45, 2.5, 50, 25),
-          new Cell(0, 0).withPosition(5, 2.5, 50, 25),
-          new Cell(0, 1).withPosition(55, 2.5, 50, 25),
-          new Cell(1, -1).withPosition(-45, -22.5, 50, 25),
-          new Cell(1, 0).withPosition(5, -22.5, 50, 25),
-          new Cell(1, 1).withPosition(55, -22.5, 50, 25)
-        ], Cell.equals);
-    });
-
-    it('view = 2; offset = 0', () => {
+    it('2D; no offset', () => {
       expect(getViewCells(50, 25, 100, 50))
         .toElementsEqualWith([
           new Cell(-1, -1).withPosition(-25, 37.5, 50, 25),
@@ -571,123 +513,13 @@ describe('geometry', () => {
         ], Cell.equals);
     });
 
-    it('view = 2.2; offset = 0', () => {
-      expect(getViewCells(50, 25, 110, 55))
-        .toElementsEqualWith([
-          new Cell(-1, -1).withPosition(-20, 40, 50, 25),
-          new Cell(-1, 0).withPosition(30, 40, 50, 25),
-          new Cell(-1, 1).withPosition(80, 40, 50, 25),
-          new Cell(0, -1).withPosition(-20, 15, 50, 25),
-          new Cell(0, 0).withPosition(30, 15, 50, 25),
-          new Cell(0, 1).withPosition(80, 15, 50, 25),
-          new Cell(1, -1).withPosition(-20, -10, 50, 25),
-          new Cell(1, 0).withPosition(30, -10, 50, 25),
-          new Cell(1, 1).withPosition(80, -10, 50, 25)
-        ], Cell.equals);
-    });
-
-    it('view = 3; offset = 0', () => {
-      expect(getViewCells(50, 25, 150, 75))
-        .toElementsEqualWith([
-          new Cell(-1, -1).withPosition(0, 50, 50, 25),
-          new Cell(-1, 0).withPosition(50, 50, 50, 25),
-          new Cell(-1, 1).withPosition(100, 50, 50, 25),
-          new Cell(0, -1).withPosition(0, 25, 50, 25),
-          new Cell(0, 0).withPosition(50, 25, 50, 25),
-          new Cell(0, 1).withPosition(100, 25, 50, 25),
-          new Cell(1, -1).withPosition(0, 0, 50, 25),
-          new Cell(1, 0).withPosition(50, 0, 50, 25),
-          new Cell(1, 1).withPosition(100, 0, 50, 25)
-        ], Cell.equals);
-    });
-
-    it('view = 3.2; offset = 0', () => {
-      expect(getViewCells(50, 25, 160, 80))
-        .toElementsEqualWith([
-          new Cell(-2, -2).withPosition(-45, 77.5, 50, 25),
-          new Cell(-2, -1).withPosition(5, 77.5, 50, 25),
-          new Cell(-2, 0).withPosition(55, 77.5, 50, 25),
-          new Cell(-2, 1).withPosition(105, 77.5, 50, 25),
-          new Cell(-2, 2).withPosition(155, 77.5, 50, 25),
-
-          new Cell(-1, -2).withPosition(-45, 52.5, 50, 25),
-          new Cell(-1, -1).withPosition(5, 52.5, 50, 25),
-          new Cell(-1, 0).withPosition(55, 52.5, 50, 25),
-          new Cell(-1, 1).withPosition(105, 52.5, 50, 25),
-          new Cell(-1, 2).withPosition(155, 52.5, 50, 25),
-
-          new Cell(0, -2).withPosition(-45, 27.5, 50, 25),
-          new Cell(0, -1).withPosition(5, 27.5, 50, 25),
-          new Cell(0, 0).withPosition(55, 27.5, 50, 25),
-          new Cell(0, 1).withPosition(105, 27.5, 50, 25),
-          new Cell(0, 2).withPosition(155, 27.5, 50, 25),
-
-          new Cell(1, -2).withPosition(-45, 2.5, 50, 25),
-          new Cell(1, -1).withPosition(5, 2.5, 50, 25),
-          new Cell(1, 0).withPosition(55, 2.5, 50, 25),
-          new Cell(1, 1).withPosition(105, 2.5, 50, 25),
-          new Cell(1, 2).withPosition(155, 2.5, 50, 25),
-
-          new Cell(2, -2).withPosition(-45, -22.5, 50, 25),
-          new Cell(2, -1).withPosition(5, -22.5, 50, 25),
-          new Cell(2, 0).withPosition(55, -22.5, 50, 25),
-          new Cell(2, 1).withPosition(105, -22.5, 50, 25),
-          new Cell(2, 2).withPosition(155, -22.5, 50, 25)
-        ], Cell.equals);
-    });
-
-    it('view = 2; offset = 0.2', () => {
-      expect(getViewCells(50, 25, 100, 50, 10, 5))
-        .toElementsEqualWith([
-          new Cell(-1, -1).withPosition(-35, 42.5, 50, 25),
-          new Cell(-1, 0).withPosition(15, 42.5, 50, 25),
-          new Cell(-1, 1).withPosition(65, 42.5, 50, 25),
-          new Cell(0, -1).withPosition(-35, 17.5, 50, 25),
-          new Cell(0, 0).withPosition(15, 17.5, 50, 25),
-          new Cell(0, 1).withPosition(65, 17.5, 50, 25),
-          new Cell(1, -1).withPosition(-35, -7.5, 50, 25),
-          new Cell(1, 0).withPosition(15, -7.5, 50, 25),
-          new Cell(1, 1).withPosition(65, -7.5, 50, 25)
-        ], Cell.equals);
-    });
-
-    it('view = 2; offset = 0.2', () => {
-      expect(getViewCells(50, 25, 100, 50, 10, 5))
-        .toElementsEqualWith([
-          new Cell(-1, -1).withPosition(-35, 42.5, 50, 25),
-          new Cell(-1, 0).withPosition(15, 42.5, 50, 25),
-          new Cell(-1, 1).withPosition(65, 42.5, 50, 25),
-          new Cell(0, -1).withPosition(-35, 17.5, 50, 25),
-          new Cell(0, 0).withPosition(15, 17.5, 50, 25),
-          new Cell(0, 1).withPosition(65, 17.5, 50, 25),
-          new Cell(1, -1).withPosition(-35, -7.5, 50, 25),
-          new Cell(1, 0).withPosition(15, -7.5, 50, 25),
-          new Cell(1, 1).withPosition(65, -7.5, 50, 25)
-        ], Cell.equals);
-    });
-
-    it('view = 2; offset = 0.5', () => {
+    it('2D; offset', () => {
       expect(getViewCells(50, 25, 100, 50, 25, 12.5))
         .toElementsEqualWith([
           new Cell(0, 0).withPosition(0, 25, 50, 25),
           new Cell(0, 1).withPosition(50, 25, 50, 25),
           new Cell(1, 0).withPosition(0, 0, 50, 25),
           new Cell(1, 1).withPosition(50, 0, 50, 25)
-        ], Cell.equals);
-    });
-
-    it('view = 2; offset = 1', () => {
-      expect(getViewCells(50, 25, 100, 50, 50, 25))
-        .toElementsEqualWith([
-          new Cell(0, 0).withPosition(-25, 37.5, 50, 25),
-          new Cell(0, 1).withPosition(25, 37.5, 50, 25),
-          new Cell(0, 2).withPosition(75, 37.5, 50, 25),
-          new Cell(1, 0).withPosition(-25, 12.5, 50, 25),
-          new Cell(1, 1).withPosition(25, 12.5, 50, 25),
-          new Cell(1, 2).withPosition(75, 12.5, 50, 25),
-          new Cell(2, 0).withPosition(-25, -12.5, 50, 25),
-          new Cell(2, 1).withPosition(25, -12.5, 50, 25),
-          new Cell(2, 2).withPosition(75, -12.5, 50, 25)
         ], Cell.equals);
     });
   });
