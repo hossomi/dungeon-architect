@@ -6,20 +6,25 @@ import Cell from 'models/Cell';
 import CellGroup from 'models/CellGroup';
 import { getViewCells } from 'utils/geometry';
 
+function isCell(cell) {
+  return (c) => c.row === cell.row && c.col === cell.col;
+}
+
 export default class Grid extends React.Component {
-  isCellSelected = (row, col) => {
+  isCellSelected = (cell) => {
     const { selectedCells } = this.props;
-    return selectedCells.some((cell) => cell.is(row, col));
+    return selectedCells.some(isCell(cell));
   };
 
-  getCellGroup = (row, col) => {
+  getCellGroup = (cell) => {
     const { cellGroups } = this.props;
-    return cellGroups.find((group) => group.contains(row, col));
+    const filter = isCell(cell);
+    return cellGroups.find((group) => group.cells.find(filter));
   };
 
-  getCellClass = (row, col) => {
-    const cn = this.getCellGroup(row, col) ? 'grid-group' : 'grid-cell';
-    return this.isCellSelected(row, col) ? `${cn} grid-selected` : cn;
+  getCellClass = (cell) => {
+    const cn = this.getCellGroup(cell) ? 'grid-group' : 'grid-cell';
+    return this.isCellSelected(cell) ? `${cn} grid-selected` : cn;
   };
 
   renderCell = (cell, fill) => {
@@ -27,12 +32,12 @@ export default class Grid extends React.Component {
       onCellMouseDown, onCellMouseUp, onCellMouseHover
     } = this.props;
 
-    const group = this.getCellGroup(cell.row, cell.col);
+    const group = this.getCellGroup(cell);
     const event = { cell, group };
 
     return (
       <rect
-        className={this.getCellClass(cell.row, cell.col)}
+        className={this.getCellClass(cell)}
         key={`${cell.row},${cell.col}`}
         x={cell.view.x}
         y={cell.view.y}
@@ -53,10 +58,10 @@ export default class Grid extends React.Component {
     return (
       <svg x={x} y={y} width={width} height={height}>
         {getViewCells(cellWidth, cellHeight, width, height)
-          .filter((cell) => this.getCellGroup(cell.row, cell.col))
-          .map((cell) => this.renderCell(cell, this.getCellGroup(cell.row, cell.col).color))}
+          .filter((cell) => this.getCellGroup(cell))
+          .map((cell) => this.renderCell(cell, this.getCellGroup(cell).color))}
         {getViewCells(cellWidth, cellHeight, width, height)
-          .filter((cell) => !this.getCellGroup(cell.row, cell.col))
+          .filter((cell) => !this.getCellGroup(cell))
           .map((cell) => this.renderCell(cell))}
       </svg>
     );

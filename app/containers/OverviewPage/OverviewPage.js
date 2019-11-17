@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
+import './style.scss';
+
 import Grid from 'components/Grid';
 import Ruler from 'components/Ruler';
-import './style.scss';
 
 const RULER_WIDTH = 20;
 
@@ -32,7 +33,16 @@ export default class OverviewPage extends React.Component {
 
   render() {
     const { width, height } = this.state;
-    const { onEnableSelection, onSelectCell, onCreateRoom } = this.props;
+    const {
+      selection,
+      rooms,
+      isCellSelected,
+      getCellRoom,
+      enableSelection,
+      clearSelection,
+      selectCell,
+      createRoom
+    } = this.props;
 
     const hlength = Math.max(width - RULER_WIDTH * 2, 0);
     const vlength = Math.max(height - RULER_WIDTH * 2, 0);
@@ -81,9 +91,24 @@ export default class OverviewPage extends React.Component {
             height={vlength}
             cellWidth={cellWidth}
             cellHeight={cellHeight}
-            onEnableSelection={onEnableSelection}
-            onSelectCell={onSelectCell}
-            onCreateRoom={onCreateRoom} />
+            selectedCells={selection.cells}
+            cellGroups={rooms}
+            onCellMouseDown={({ cell }) => {
+              selectCell(cell.row, cell.col);
+              enableSelection(true);
+            }}
+            onCellMouseUp={() => {
+              createRoom(selection.cells);
+              enableSelection(false);
+              clearSelection();
+            }}
+            onCellMouseHover={({ cell }) => {
+              if (selection.enabled
+                && !isCellSelected(cell.row, cell.col)
+                && !getCellRoom(cell.row, cell.col)) {
+                selectCell(cell.row, cell.col);
+              }
+            }} />
         </svg>
       </div>
     );
@@ -91,7 +116,12 @@ export default class OverviewPage extends React.Component {
 }
 
 OverviewPage.propTypes = {
-  onEnableSelection: PropTypes.func,
-  onSelectCell: PropTypes.func,
-  onCreateRoom: PropTypes.func
+  selection: PropTypes.object,
+  rooms: PropTypes.array,
+  isCellSelected: PropTypes.func,
+  getCellRoom: PropTypes.func,
+  enableSelection: PropTypes.func,
+  clearSelection: PropTypes.func,
+  selectCell: PropTypes.func,
+  createRoom: PropTypes.func
 };

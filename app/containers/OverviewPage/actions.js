@@ -1,4 +1,4 @@
-import { ENABLE_SELECTION, SELECT_CELL, CREATE_ROOM } from './constants';
+import { ENABLE_SELECTION, CLEAR_SELECTION, SELECT_CELL, CREATE_ROOM } from './constants';
 
 export function enableSelection(enabled) {
   return {
@@ -7,16 +7,25 @@ export function enableSelection(enabled) {
   };
 }
 
-export function selectCell(cell) {
+export function clearSelection() {
   return {
-    type: SELECT_CELL,
-    cell
+    type: CLEAR_SELECTION
   };
 }
 
-export function createRoom(room) {
+export function selectCell(row, col) {
+  return {
+    type: SELECT_CELL,
+    row,
+    col
+  };
+}
+
+export function createRoom(cells, name = 'Unknown', color = '#ff0000') {
   return {
     type: CREATE_ROOM,
-    room
+    cells,
+    name,
+    color
   };
 }

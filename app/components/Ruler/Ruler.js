@@ -33,8 +33,17 @@ function htick(cell, width, position) {
 
   return (
     <g key={cell.col}>
-      <line className="ruler-tick" x1={cell.view.x} x2={cell.view.x} y1={0} y2={cell.view.width} />
-      <text className="ruler-tick" x={cell.view.x + 2} y={p.y} baselineShift={p.shift}>
+      <line
+        className="ruler-tick"
+        x1={cell.view.x}
+        x2={cell.view.x}
+        y1={0}
+        y2={cell.view.width} />
+      <text
+        className="ruler-tick"
+        x={cell.view.x + 2}
+        y={p.y}
+        baselineShift={p.shift}>
         {cell.col}
       </text>
     </g>
@@ -46,7 +55,12 @@ function vtick(cell, width, position) {
 
   return (
     <g key={cell.col}>
-      <line className="ruler-tick" x1={0} x2={cell.view.width} y1={cell.view.x} y2={cell.view.x} />
+      <line
+        className="ruler-tick"
+        x1={0}
+        x2={cell.view.width}
+        y1={cell.view.x}
+        y2={cell.view.x} />
       <text
         className="ruler-tick"
         x={2}

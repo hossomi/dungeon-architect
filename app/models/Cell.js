@@ -57,11 +57,7 @@ class Cell {
       : this.withPosition2D(...args);
   }
 
-  inView1D(
-    cell,
-    view,
-    offset = 0
-  ) {
+  inView1D(cell, view, offset = 0) {
     const x = ((view - cell) / 2) - offset + (this.col * cell);
     return this.withPosition(x, cell);
   }
@@ -81,10 +77,6 @@ class Cell {
       ? this.inView1D(...args)
       : this.inView2D(...args);
   }
-
-  is(row, col) { return this.row === row && this.col === col; }
-
-  equals(other) { return Cell.equals(this, other); }
 }
 
 export default Cell;
