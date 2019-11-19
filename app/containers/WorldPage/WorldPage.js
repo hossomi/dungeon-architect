@@ -31,14 +31,19 @@ export default class OverviewPage extends React.Component {
     });
   };
 
+  isCellSelectable = (row, col) => {
+    const { selectedCells, rooms } = this.props;
+    const isCell = (c) => c.row === row && c.col === col;
+    return !selectedCells.find(isCell) && !rooms.find((r) => r.cells.find(isCell));
+  }
+
   render() {
     const { width, height } = this.state;
     const {
-      selection,
+      selectionEnabled,
+      selectedCells,
       rooms,
-      isCellSelected,
-      getCellRoom,
-      enableSelection,
+      toggleSelection,
       clearSelection,
       selectCell,
       createRoom
@@ -50,7 +55,7 @@ export default class OverviewPage extends React.Component {
     const cellHeight = 60;
 
     return (
-      <div className="overview">
+      <div className="world">
         <Helmet>
           <title>Overview</title>
         </Helmet>
@@ -91,26 +96,23 @@ export default class OverviewPage extends React.Component {
             height={vlength}
             cellWidth={cellWidth}
             cellHeight={cellHeight}
-            selectedCells={selection.cells}
+            selectedCells={selectedCells}
             groupedCells={rooms}
             onCellMouseDown={({ cell }) => {
-              if (!isCellSelected(cell.row, cell.col)
-                && !getCellRoom(cell.row, cell.col)) {
+              if (this.isCellSelectable(cell.row, cell.col)) {
                 selectCell(cell.row, cell.col);
               }
-              enableSelection(true);
+              toggleSelection(true);
             }}
             onCellMouseUp={() => {
-              if (selection.cells.length > 0) {
-                createRoom(selection.cells);
+              if (selectedCells.length > 0) {
+                createRoom(selectedCells);
                 clearSelection();
               }
-              enableSelection(false);
+              toggleSelection(false);
             }}
             onCellMouseOver={({ cell }) => {
-              if (selection.enabled
-                && !isCellSelected(cell.row, cell.col)
-                && !getCellRoom(cell.row, cell.col)) {
+              if (selectionEnabled && this.isCellSelectable(cell.row, cell.col)) {
                 selectCell(cell.row, cell.col);
               }
             }} />
@@ -121,11 +123,10 @@ export default class OverviewPage extends React.Component {
 }
 
 OverviewPage.propTypes = {
-  selection: PropTypes.object,
+  selectionEnabled: PropTypes.bool,
+  selectedCells: PropTypes.array,
   rooms: PropTypes.array,
-  isCellSelected: PropTypes.func,
-  getCellRoom: PropTypes.func,
-  enableSelection: PropTypes.func,
+  toggleSelection: PropTypes.func,
   clearSelection: PropTypes.func,
   selectCell: PropTypes.func,
   createRoom: PropTypes.func

@@ -1,6 +1,6 @@
 import { ENABLE_SELECTION, CLEAR_SELECTION, SELECT_CELL, CREATE_ROOM } from './constants';
 
-export function enableSelection(enabled) {
+export function toggleSelection(enabled) {
   return {
     type: ENABLE_SELECTION,
     enabled

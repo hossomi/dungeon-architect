@@ -1,24 +1,33 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
-import { enableSelection, clearSelection, selectCell, createRoom } from './actions';
+
+import {
+  toggleSelection,
+  clearSelection,
+  selectCell,
+  createRoom
+} from './actions';
+import {
+  makeSelectSelectionEnabled,
+  makeSelectSelectedCells,
+  makeSelectRooms
+} from './selectors';
 import reducer from './reducer';
 import WorldPage from './WorldPage';
 
 const mapDispatchToProps = (dispatch) => ({
-  enableSelection: (enable) => dispatch(enableSelection(enable)),
+  toggleSelection: (enable) => dispatch(toggleSelection(enable)),
   clearSelection: () => dispatch(clearSelection()),
   selectCell: (row, col) => dispatch(selectCell(row, col)),
   createRoom: (room) => dispatch(createRoom(room))
 });
 
-const mapStateToProps = (state) => ({
-  ...state.world,
-  isCellSelected: (row, col) => state.world.selection.cells
-    .find((c) => c.row === row && c.col === col),
-  getCellRoom: (row, col) => state.world.rooms
-    .find((r) => r.cells
-      .find((c) => c.row === row && c.col === col))
+const mapStateToProps = createStructuredSelector({
+  selectionEnabled: makeSelectSelectionEnabled(),
+  selectedCells: makeSelectSelectedCells(),
+  rooms: makeSelectRooms()
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
