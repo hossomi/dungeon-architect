@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Switch, Route } from 'react-router-dom';
 
-import OverviewPage from 'containers/OverviewPage';
+import WorldPage from 'containers/WorldPage';
 import NotFoundPage from 'containers/NotFoundPage';
 import Header from 'components/Header';
 import Toolbar from 'components/Toolbar';
@@ -17,7 +17,7 @@ const App = () => (
     <Header />
     <div id="content" className="content">
       <Switch>
-        <Route exact path="/" component={OverviewPage} />
+        <Route exact path="/" component={WorldPage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
     </div>

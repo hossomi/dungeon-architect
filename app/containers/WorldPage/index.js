@@ -3,7 +3,7 @@ import { compose } from 'redux';
 import injectReducer from 'utils/injectReducer';
 import { enableSelection, clearSelection, selectCell, createRoom } from './actions';
 import reducer from './reducer';
-import OverviewPage from './OverviewPage';
+import WorldPage from './WorldPage';
 
 const mapDispatchToProps = (dispatch) => ({
   enableSelection: (enable) => dispatch(enableSelection(enable)),
@@ -13,15 +13,15 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  ...state.overview,
-  isCellSelected: (row, col) => state.overview.selection.cells
+  ...state.world,
+  isCellSelected: (row, col) => state.world.selection.cells
     .find((c) => c.row === row && c.col === col),
-  getCellRoom: (row, col) => state.overview.rooms
+  getCellRoom: (row, col) => state.world.rooms
     .find((r) => r.cells
       .find((c) => c.row === row && c.col === col))
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
-const withReducer = injectReducer({ key: 'overview', reducer });
+const withReducer = injectReducer({ key: 'world', reducer });
 
-export default compose(withReducer, withConnect)(OverviewPage);
+export default compose(withReducer, withConnect)(WorldPage);

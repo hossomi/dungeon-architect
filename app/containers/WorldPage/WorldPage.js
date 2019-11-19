@@ -31,35 +31,6 @@ export default class OverviewPage extends React.Component {
     });
   };
 
-  selectCellIfPossible = (cell) => {
-    const {
-      selection,
-      isCellSelected,
-      getCellRoom,
-      selectCell
-    } = this.props;
-
-    console.log(selection.enabled, !isCellSelected(cell.row, cell.col), !getCellRoom(cell.row, cell.col));
-    if (selection.enabled
-      && !isCellSelected(cell.row, cell.col)
-      && !getCellRoom(cell.row, cell.col)) {
-      selectCell(cell.row, cell.col);
-    }
-  }
-
-  createRoomAndClearSelection = () => {
-    const {
-      selection,
-      createRoom,
-      clearSelection
-    } = this.props;
-
-    if (selection.cells.length > 0) {
-      createRoom(selection.cells);
-      clearSelection();
-    }
-  }
-
   render() {
     const { width, height } = this.state;
     const {
@@ -68,7 +39,9 @@ export default class OverviewPage extends React.Component {
       isCellSelected,
       getCellRoom,
       enableSelection,
-      selectCell
+      clearSelection,
+      selectCell,
+      createRoom
     } = this.props;
 
     const hlength = Math.max(width - RULER_WIDTH * 2, 0);
@@ -128,7 +101,10 @@ export default class OverviewPage extends React.Component {
               enableSelection(true);
             }}
             onCellMouseUp={() => {
-              this.createRoomAndClearSelection();
+              if (selection.cells.length > 0) {
+                createRoom(selection.cells);
+                clearSelection();
+              }
               enableSelection(false);
             }}
             onCellMouseOver={({ cell }) => {
