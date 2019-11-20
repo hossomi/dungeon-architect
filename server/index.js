@@ -5,7 +5,7 @@ const { resolve } = require('path');
 const logger = require('./util//logger');
 
 const argv = require('./util/argv');
-const port = require('./util//port');
+const port = require('./util/port');
 const setup = require('./middlewares/frontendMiddleware');
 
 const app = express();
