@@ -4,8 +4,8 @@ import { Switch, Route } from 'react-router-dom';
 
 import WorldPage from 'containers/WorldPage';
 import NotFoundPage from 'containers/NotFoundPage';
+import Toolbar from 'containers/Toolbar';
 import Header from 'components/Header';
-import Toolbar from 'components/Toolbar';
 import './style.scss';
 
 const App = () => (
