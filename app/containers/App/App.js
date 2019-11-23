@@ -5,7 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import WorldPage from 'containers/WorldPage';
 import NotFoundPage from 'containers/NotFoundPage';
 import Toolbar from 'containers/Toolbar';
-import Header from 'components/Header';
+import Navigator from 'containers/Navigator';
 import './style.scss';
 
 const App = () => (
@@ -14,7 +14,7 @@ const App = () => (
       titleTemplate="%s - Dungeon Architect"
       defaultTitle="Dungeon Architect">
     </Helmet>
-    <Header />
+    <Navigator />
     <div id="content" className="content">
       <Switch>
         <Route exact path="/" component={WorldPage} />

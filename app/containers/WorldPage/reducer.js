@@ -1,7 +1,7 @@
 import update from 'immutability-helper';
 import { ENABLE_SELECTION, CLEAR_SELECTION, SELECT_CELL, CREATE_ROOM } from './constants';
 
-const initialState = {
+export const initialState = {
   selection: {
     enabled: false,
     cells: []
@@ -38,6 +38,7 @@ export default (state = initialState, action) => {
       return update(state, {
         rooms: {
           $push: [{
+            id: state.rooms.length,
             cells: action.cells,
             name: action.name,
             color: action.color
