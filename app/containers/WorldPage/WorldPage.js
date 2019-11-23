@@ -8,7 +8,7 @@ import Ruler from 'components/Ruler';
 
 const RULER_WIDTH = 20;
 
-export default class OverviewPage extends React.Component {
+export default class WorldPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = { width: 0, height: 0 };
@@ -122,7 +122,7 @@ export default class OverviewPage extends React.Component {
   }
 }
 
-OverviewPage.propTypes = {
+WorldPage.propTypes = {
   selectionEnabled: PropTypes.bool,
   selectedCells: PropTypes.array,
   rooms: PropTypes.array,

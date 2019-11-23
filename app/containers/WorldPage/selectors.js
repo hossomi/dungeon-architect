@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
+import { initialState } from './reducer';
 
-const selectWorld = (state) => state.world;
+const selectWorld = (state) => state.world || initialState;
 
 const makeSelectSelectionEnabled = () => createSelector(
   selectWorld,
