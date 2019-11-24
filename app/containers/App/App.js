@@ -9,19 +9,23 @@ import Navigator from 'containers/Navigator';
 import './style.scss';
 
 const App = () => (
-  <div className="app-wrapper">
+  <div className="app">
     <Helmet
       titleTemplate="%s - Dungeon Architect"
       defaultTitle="Dungeon Architect">
     </Helmet>
-    <Navigator />
+    <div className="left">
+      <Navigator />
+    </div>
     <div id="content" className="content">
       <Switch>
         <Route exact path="/" component={WorldPage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
     </div>
-    <Toolbar />
+    <div className="right">
+      <Toolbar />
+    </div>
   </div>
 );
 
