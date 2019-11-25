@@ -11,8 +11,7 @@ class Navigator extends React.Component {
     const { rooms } = this.props;
     return (
       <div className="navigator">
-        <h1>Dungeon Architect</h1>
-        <h2>Rooms</h2>
+        <h1>Rooms</h1>
         {rooms.map(this.renderRoom)}
       </div>
     );

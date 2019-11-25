@@ -15,7 +15,8 @@ const App = () => (
       defaultTitle="Dungeon Architect">
     </Helmet>
     <div className="left">
-      <Navigator />
+      <h1 className="title">Dungeon Architect</h1>
+      <Toolbar />
     </div>
     <div id="content" className="content">
       <Switch>
@@ -24,7 +25,7 @@ const App = () => (
       </Switch>
     </div>
     <div className="right">
-      <Toolbar />
+      <Navigator />
     </div>
   </div>
 );

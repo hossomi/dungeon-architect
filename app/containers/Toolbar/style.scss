@@ -3,7 +3,6 @@ footer {
   height: 100%;
   padding: 0;
 
-  border-left: 5px solid white;
   background: lightgray;
 
   h1 {
@@ -14,5 +13,13 @@ footer {
 
     font-size: 12pt;
     color: white;
+  }
+
+  .button {
+    background: red;
+  }
+
+  svg {
+    margin: 20px;
   }
 }
