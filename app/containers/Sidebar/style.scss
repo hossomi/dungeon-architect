@@ -1,0 +1,45 @@
+footer {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+
+  h1 {
+    margin: 0;
+    padding: 10px;
+
+    background: black;
+
+    font-size: 14pt;
+    color: white;
+  }
+
+  h2 {
+    margin: 0;
+    padding: 5px 10px;
+
+    background: gray;
+
+    font-size: 12pt;
+    color: white;
+  }
+
+  .sidebar-content {
+    display: grid;
+    grid-template: "toolbar settings" / 40px 1fr;
+
+    height: 100%;
+
+    .sidebar-toolbar {
+      grid-area: toolbar;
+      display: block;
+
+      background: gray;
+    }
+
+    .sidebar-settings {
+      grid-area: settings;
+
+      background: lightgray;
+    }
+  }
+}

@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import WorldPage from 'containers/WorldPage';
 import NotFoundPage from 'containers/NotFoundPage';
-import Toolbar from 'containers/Toolbar';
+import Sidebar from 'containers/Sidebar';
 import Navigator from 'containers/Navigator';
 import './style.scss';
 
@@ -14,15 +14,14 @@ const App = () => (
       titleTemplate="%s - Dungeon Architect"
       defaultTitle="Dungeon Architect">
     </Helmet>
-    <div className="left">
-      <h1 className="title">Dungeon Architect</h1>
-      <Toolbar />
-    </div>
     <div id="content" className="content">
       <Switch>
         <Route exact path="/" component={WorldPage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
+    </div>
+    <div className="left">
+      <Sidebar />
     </div>
     <div className="right">
       <Navigator />

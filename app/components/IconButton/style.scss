@@ -1,0 +1,51 @@
+button.icon-button {
+  display: block;
+
+  width: 100%;
+  padding: 3px;
+
+  border: none;
+  background: none;
+
+  &.disabled {
+    color: darkgray;
+  }
+
+  &:focus {
+    outline: none;
+
+    &:not(.disabled) {
+      color: black;
+    }
+  }
+
+  &:hover:not(.disabled) {
+    background: red;
+  }
+
+  &:active:not(.disabled) {
+    background: darkred;
+  }
+
+  &.active {
+    background: blue;
+
+    &:focus {
+      &:not(.disabled) {
+        color: black;
+      }
+    }
+
+    &:hover {
+      background: lightblue;
+    }
+
+    &:active {
+      background: darkblue;
+    }
+  }
+
+  svg {
+    display: block;
+  }
+}

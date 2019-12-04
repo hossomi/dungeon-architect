@@ -7,7 +7,7 @@ import {
   makeSelectRooms
 } from '../WorldPage/selectors';
 import reducer from './reducer';
-import Toolbar from './Toolbar';
+import Sidebar from './Sidebar';
 
 const mapDispatchToProps = () => ({
 });
@@ -17,6 +17,6 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
-const withReducer = injectReducer({ key: 'toolbar', reducer });
+const withReducer = injectReducer({ key: 'Sidebar', reducer });
 
-export default compose(withReducer, withConnect)(Toolbar);
+export default compose(withReducer, withConnect)(Sidebar);

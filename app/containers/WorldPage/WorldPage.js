@@ -26,8 +26,8 @@ export default class WorldPage extends React.Component {
   updateWindowDimensions = () => {
     const content = document.getElementById('content');
     this.setState({
-      width: content.offsetWidth,
-      height: content.offsetHeight
+      width: content.clientWidth,
+      height: content.clientHeight
     });
   };
 
