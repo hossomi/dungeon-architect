@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
 
-class Navigator extends React.Component {
+export default class Navigator extends React.Component {
   renderRoom = (room) => (
     <a key={room.id}>{room.name} <span style={{ float: 'right' }}>#{room.id}</span></a>
   )
@@ -25,5 +25,3 @@ Navigator.propTypes = {
 Navigator.defaultProps = {
   rooms: []
 };
-
-export default Navigator;
