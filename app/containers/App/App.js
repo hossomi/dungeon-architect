@@ -14,14 +14,14 @@ const App = () => (
       titleTemplate="%s - Dungeon Architect"
       defaultTitle="Dungeon Architect">
     </Helmet>
-    <div id="content" className="content">
+    <div className="left">
+      <Sidebar />
+    </div>
+    <div className="content">
       <Switch>
         <Route exact path="/" component={WorldPage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
-    </div>
-    <div className="left">
-      <Sidebar />
     </div>
     <div className="right">
       <Navigator />

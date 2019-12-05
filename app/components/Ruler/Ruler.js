@@ -38,7 +38,7 @@ function htick(cell, width, position) {
         x1={cell.view.x}
         x2={cell.view.x}
         y1={0}
-        y2={cell.view.width} />
+        y2={width} />
       <text
         className="ruler-tick"
         x={cell.view.x + 2}
@@ -58,7 +58,7 @@ function vtick(cell, width, position) {
       <line
         className="ruler-tick"
         x1={0}
-        x2={cell.view.width}
+        x2={width}
         y1={cell.view.x}
         y2={cell.view.x} />
       <text

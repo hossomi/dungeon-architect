@@ -24,7 +24,7 @@ export default class WorldPage extends React.Component {
   }
 
   updateWindowDimensions = () => {
-    const content = document.getElementById('content');
+    const content = document.getElementById('world');
     this.setState({
       width: content.clientWidth,
       height: content.clientHeight
@@ -55,12 +55,12 @@ export default class WorldPage extends React.Component {
     const cellHeight = 60;
 
     return (
-      <div className="world">
+      <div id="world" className="world">
         <Helmet>
           <title>Overview</title>
         </Helmet>
 
-        <svg width={width} height={height}>
+        <svg width="100%" height="100%">
           <Ruler
             x={RULER_WIDTH}
             y={0}
